@@ -72,7 +72,7 @@ int set_work_directory(ProgramData *data, char *new_dir)
 	char old_dir[128] = {0};
 	int err_code = 0;
 
-	/* current working directory to old_dir */
+	/* CWD to old_dir */
 	getcwd(old_dir, 128);
 	/* is the new directory is different from the current directory */
 	if (!str_compare(old_dir, new_dir, 0))
