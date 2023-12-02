@@ -1,6 +1,9 @@
 #ifndef REAL_SHELL_H
 #define REAL_SHELL_H
 
+/* ---------- shell_support.h -------------*/ 
+#include "shell_support.h"
+
 #include <stdio.h>    /* Standard I/O functions, used for printf */
 #include <unistd.h>   /* POSIX API, including fork, execve */
 #include <stdlib.h>   /* Standard Library , for memory allocation */
