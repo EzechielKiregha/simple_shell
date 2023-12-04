@@ -1,11 +1,11 @@
-#include "real_shell.h"
+include "real_shell.h"
 
 /**
  * exit_command - Builtin function to exit the program.
  * @data: Pointer to the ProgramData structure containing program information.
  * Return: Exit status based on the provided argument or the value of errno.
  */
-int exit_command(ProgramData *data)
+int exit_command(ProgramData * data)
 {
 	int i;
 
@@ -14,7 +14,7 @@ int exit_command(ProgramData *data)
 	{/*is the argument a valid number? */
 		for (i = 0; data->tokens[1][i]; i++)
 			if ((data->tokens[1][i] < '0' || data->tokens[1][i] > '9')
-				&& data->tokens[1][i] != '+')
+					&& data->tokens[1][i] != '+')
 			{/* If it's not a number, errno is set and return 2 */
 				errno = 2;
 				return (2);
@@ -92,3 +92,72 @@ int set_work_directory(ProgramData *data, char *new_dir)
 	return (0);
 }
 
+/**
+ * help_command - Builtin function to display help information shell commands.
+ * @data: Pointer to the ProgramData structure containing program information.
+ * Return: 0 on success, 1 help message is displayed, 5 on validation error.
+ */
+int help_command(ProgramData *data)
+{
+	int i, length = 0;
+	char *messages[6] = {NULL};
+
+	messages[0] = HELP_MSG;
+	/* Validate the number of arguments */
+	if (data->tokens[1] == NULL)
+	{
+		_print(messages[0] + 6);
+		return (1);
+	}
+	if (data->tokens[2] != NULL)
+	{
+		errno = E2BIG;
+		perror(data->command_name);
+		return (5); /* Return 5 for argument validation error */
+	}
+	messages[1] = HELP_MSG_EXIT;
+	messages[2] = HELP_MSG_ENV;
+	messages[3] = HELP_MSG_SETENV;
+	messages[4] = HELP_MSG_UNSETENV;
+	messages[5] = HELP_MSG_CD;
+
+	/* does the provided argument matches any command's help message */
+	for (i = 0; messages[i]; i++)
+	{
+		length = str_length(data->tokens[1]);
+		if (str_compare(data->tokens[1], messages[i], length))
+		{
+			_printf(messages[i] + length + 1);
+			return (1);
+		}
+	}
+	/ If no match is found, print an error and return 0 /
+		errno = EINVAL;
+	perror(data->command_name);
+	return (0);
+}
+/**
+ * alias_command - Builtin function to manage shell aliases.
+ * @data: Pointer to the ProgramData structure containing program information.
+ * Return: 0 on success, or result of print_alias function.
+ */
+int alias_command(ProgramData *data)
+{
+	int i = 0;
+
+	/* print all aliases */
+	if (data->tokens[1] == NULL)
+		return (print_alias(data, NULL));
+
+	/* If arguments are present, set or print each alias */
+	while (data->tokens[++i])
+	{
+		/* Check if the argument contains the "=" character */
+		if (count_characters(data->tokens[i], "="))
+			set_alias(data->tokens[i], data);
+		else
+			return (print_alias(data, data->tokens[i]));
+	}
+
+	return (0);
+}
