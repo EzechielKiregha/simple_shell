@@ -64,7 +64,14 @@ int set_env_command(ProgramData *data);
 int unset_env_command(ProgramData *data);
 
 /* Execute the builtins commands */
-int execute_builtins(ProgramData *data);
+int is_builtin(ProgramData *data);
 
+/* ---------- path.c ------------- */
+
+/* Find the executable program */
+int locate_executable_cmd(ProgramData *data);
+
+/* Create Array of tokenized directories*/
+char **path_tok(ProgramData *data);
 
 #endif

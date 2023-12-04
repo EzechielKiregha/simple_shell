@@ -6,7 +6,7 @@
  * @data: Pointer to the ProgramData structure containing program information.
  * or -1 if no match is found.
  */
-int execute_builtins(ProgramData *data)
+int is_builtin(ProgramData *data)
 {
 	int iterator;
 
