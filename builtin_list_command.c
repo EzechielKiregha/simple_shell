@@ -1,4 +1,4 @@
-include "real_shell.h"
+#include "real_shell.h"
 
 /**
  * exit_command - Builtin function to exit the program.
@@ -131,8 +131,8 @@ int help_command(ProgramData *data)
 			return (1);
 		}
 	}
-	/ If no match is found, print an error and return 0 /
-		errno = EINVAL;
+	/* If no match is found, print an error and return 0 */
+	errno = EINVAL;
 	perror(data->command_name);
 	return (0);
 }
