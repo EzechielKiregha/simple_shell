@@ -48,8 +48,8 @@ typedef struct ProgramData
  */
 typedef struct BuiltinCommand
 {
-    char *builtin;
-    int (*function)(ProgramData *data);
+	char *builtin;
+	int (*function)(ProgramData *data);
 } BuiltinCommand;
 
 /* ------- builtin_command_list.c -------- */
@@ -86,5 +86,11 @@ int _getline(ProgramData *data);
 
 /* Shows the environment where the shell runs */
 int env_command(ProgramData *data);
+
+/* create or override a variable of environment */
+int set_env(ProgramData *data);
+
+/* delete a variable of environment */
+int unset_env(ProgramData *data);
 
 #endif
