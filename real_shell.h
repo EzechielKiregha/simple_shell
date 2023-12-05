@@ -74,4 +74,17 @@ int locate_executable_cmd(ProgramData *data);
 /* Create Array of tokenized directories*/
 char **path_tok(ProgramData *data);
 
+/* -------- file_descriptor.c --------- */
+
+/* split the each line for the logical operators if it exist */
+int logic(char *array_commands[], int i, char array_operators[]);
+
+/* Read one line from file descriptor*/
+int _getline(ProgramData *data);
+
+/* ---------- eviron.c ----------- */
+
+/* Shows the environment where the shell runs */
+int env_command(ProgramData *data);
+
 #endif
