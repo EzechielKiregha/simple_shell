@@ -105,4 +105,18 @@ int set_env(ProgramData *data);
 /* delete a variable of environment */
 int unset_env(ProgramData *data);
 
+/*-------------- manage_env.c ------------*/
+
+
+
+/*------------- alias_expansion.c -------------*/
+
+/* Expand variables in the input line*/
+void expand_the_variables(ProgramData *data);
+
+/* expand aliases */
+void expand_alias(ProgramData *data);
+
+/* append the string to the end of the buffer*/
+int buffer_add(char *buffer, char *str_to_add);
 #endif
