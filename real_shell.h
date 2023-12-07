@@ -35,7 +35,7 @@ typedef struct ProgramData
 	char *command_name;
 	char **tokens;
 	char **env;
-	char **alias_list;
+	char **aliases;
 	int exec_counter;
 	int file_descriptor;
 } ProgramData;
@@ -73,6 +73,18 @@ int locate_executable_cmd(ProgramData *data);
 
 /* Create Array of tokenized directories*/
 char **path_tok(ProgramData *data);
+
+/*--------- aliases.c ------------*/
+
+/* print aliases or a specific alias if provided */
+int print_alias(ProgramData *data, char *alias);
+
+/* get the value associated with the given alias*/
+char *alias_get(ProgramData *data, char *name);
+
+/* set or update the existing alias */
+int alias_set(char *str_alias, ProgramData *data);
+
 
 /* -------- file_descriptor.c --------- */
 
