@@ -107,7 +107,17 @@ int unset_env(ProgramData *data);
 
 /*-------------- manage_env.c ------------*/
 
+/* Remove a key from the environment */
+int remove_env_key(char *key, ProgramData *data);
 
+/* prints the current environ */
+void print_env(ProgramData *data);
+
+/* Gets the value of an environment variable */
+char *get_env_key(char *key, ProgramData *data);
+
+/* Overwrite the value of the environment variable */
+int set_key_value_pair(char *key, char *value, ProgramData *data);
 
 /*------------- alias_expansion.c -------------*/
 
