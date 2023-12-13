@@ -35,14 +35,13 @@ int main(int argc, char *argv[], char *env[])
  */
 void data_initializer(ProgramData *data, int argc, char *argv[], char **env)
 {
-	int i = 0;
+	int i = 0, env_count = 0;
 
 	data->program_name = argv[0];
 	data->input_line = NULL;
 	data->command_name = NULL;
 	data->exec_counter = 0;
-	/* define the file descriptor to be readed*/
-	if (argc == 1)
+	if (argc == 1)/* define the file descriptor to be read*/
 		data->file_descriptor = STDIN_FILENO;
 	else
 	{
@@ -57,13 +56,22 @@ void data_initializer(ProgramData *data, int argc, char *argv[], char **env)
 		}
 	}
 	data->tokens = NULL;
-	data->env = malloc(sizeof(char *) * 50);
-	if (env)
-		for (; env[i]; i++)
+	while (env[env_count] != NULL)
+	{
+		env_count++;
+	}
+	data->env = malloc(sizeof(char *) * (env_count + 1));
+	if (!data->env)
+		_error_stdout(126, data);
+	if (data->env)
+	{
+		for (i = 0; env[i]; i++)
 			data->env[i] = str_duplicate(env[i]);
-	data->env[i] = NULL;
+		data->env[i] = NULL;
+	}
+	else
+		_error_stdout(126, data);
 	env = data->env;
-
 	data->aliases = malloc(sizeof(char *) * 20);
 	for (i = 0; i < 20; i++)
 		data->aliases[i] = NULL;

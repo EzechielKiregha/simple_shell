@@ -1,7 +1,7 @@
 #ifndef REAL_SHELL_H
 #define REAL_SHELL_H
 
-/* ---------- shell_support.h -------------*/ 
+/* ---------- shell_support.h -------------*/
 #include "shell_support.h"
 
 #include <stdio.h>    /* Standard I/O functions, used for printf */
@@ -25,7 +25,7 @@
  * @file_descriptor: file descriptor to the input of commands
  * @tokens: pointer to array of tokenized input
  * @env: copy of the environ
- * @alias_list: array of pointers with aliases.
+ * @aliases: array of pointers with aliases.
  */
 
 typedef struct ProgramData
@@ -66,6 +66,19 @@ int unset_env_command(ProgramData *data);
 /* Execute the builtins commands */
 int is_builtin(ProgramData *data);
 
+/*Execute a command, searching in built-ins and the file system*/
+int execute(ProgramData *data);
+
+/* ----------- mainloop.c --------- */
+
+/* Inicialize the struct with the info of the program */
+void data_initializer(ProgramData *data, int argc, char *argv[], char **env);
+
+/* Makes the infinite loop that shows the prompt*/
+void my_shell(char *prompt, ProgramData *data);
+
+/* Print the prompt in a new line */
+void line_prompt(int opr UNUSED);
 /* ---------- path.c ------------- */
 
 /* Find the executable program */
@@ -128,12 +141,13 @@ void expand_the_variables(ProgramData *data);
 void expand_alias(ProgramData *data);
 
 /* append the string to the end of the buffer*/
-int buffer_add(char *buffer, char *str_to_add);
+int add_to_buffer(char *buffer, char *str_to_add);
 
 /*--------------- token_add.c & tokenization.c --------------*/
 
 /*Tokenize the input line into an array of strings.*/
 void tokenize(ProgramData *data);
+
 
 /*separates strings with delimiters*/
 char *_strtok(char *line, char *delim);
@@ -180,7 +194,7 @@ int count_characters(char *string, char *character);
 /*-------- memory_release.c / helper free ------------*/
 
 /* the memory for directories released (freed)*/
-void free_array_of_pointers(char **list);
+void free_array_of_pointers(char ***list);
 
 /* Free the fields needed each loop */
 void free_recurrent_data(ProgramData *data);

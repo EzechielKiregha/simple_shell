@@ -44,7 +44,9 @@ int _len(char *chain_of_chars)
 		return (0);
 
 	while (chain_of_chars[length++] != '\0')
-		return (--length);
+	{
+	}
+	return (--length);
 }
 
 /**

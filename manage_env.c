@@ -15,7 +15,7 @@ int set_key_value_pair(char *key, char *value, ProgramData *data)
 	if (key == NULL || value == NULL || data->env == NULL)
 		return (1);
 
-	len = str_length(key);
+	len = _len(key);
 
 	for (i = 0; data->env[i]; i++)
 	{
@@ -53,7 +53,7 @@ char *get_env_key(char *key, ProgramData *data)
 		return (NULL);
 
 	/* Obtain the length of the variable requested*/
-	len = str_length(key);
+	len = _len(key);
 
 	/* Iterate through the env for any the coincidence of the name */
 	for (i = 0; data->env[i]; i++)
@@ -81,9 +81,9 @@ int remove_env_key(char *key, ProgramData *data)
 	if (key == NULL || data->env == NULL)
 		return (0);
 
-	len = str_length(key);
+	len = _len(key);
 
-	/ Iterate through the environment maybe for coincidences /
+	/* Iterate through the environment maybe for coincidences */
 		for (i = 0; data->env[i]; i++)
 		{
 			if (str_compare(key, data->env[i], len) &&
@@ -97,13 +97,13 @@ int remove_env_key(char *key, ProgramData *data)
 				for (; data->env[i]; i++)
 					data->env[i - 1] = data->env[i];
 
-				/ Put NULL at the new end of the list /
+				/* Put NULL at the new end of the list */
 					data->env[i - 1] = NULL;
 				return (1);
 			}
 		}
 
-	return (0); / Return key not found or invalid arguments /
+	return (0); /* Return key not found or invalid arguments */
 }
 
 /**

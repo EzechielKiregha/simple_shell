@@ -8,7 +8,7 @@
 void free_recurrent_data(ProgramData *data)
 {
 	if (data->tokens)
-		free_array_of_pointers(data->tokens);
+		free_array_of_pointers(&(data->tokens));
 	if (data->input_line)
 		free(data->input_line);
 	if (data->command_name)
@@ -24,19 +24,20 @@ void free_recurrent_data(ProgramData *data)
  * @list: array of pointers
  * Return: nothing
  */
-void free_array_of_pointers(char **list)
+void free_array_of_pointers(char ***list)
 {
 	int i;
 
-	if (list != NULL)
+	if (list != NULL && *list != NULL)
 	{
-		for (i = 0; list[i]; i++)
-			free(list[i]);
+		for (i = 0; (*list)[i]; i++)
+			free((*list)[i]);
 
-		free(list);
-		list = NULL;
+		free(*list);
+		*list = NULL;
 	}
 }
+
 /**
  * free_all_data - free all field of the data
  * @data: struct of the ProgramData structure
@@ -49,6 +50,6 @@ void free_all_data(ProgramData *data)
 			perror(data->program_name);
 
 	free_recurrent_data(data);
-	free_array_of_pointers(data->env);
-	free_array_of_pointers(data->aliases);
+	free_array_of_pointers(&(data->env));
+	free_array_of_pointers(&(data->aliases));
 }

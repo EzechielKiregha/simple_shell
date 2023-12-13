@@ -47,13 +47,13 @@ int locate_executable_cmd(ProgramData *data)
 			errno = 0;
 			free(data->tokens[0]);
 			data->tokens[0] = str_duplicate(directories[i]);
-			free_array_of_pointers(directories);
+			free_array_of_pointers(&(directories));
 			return (ret_code);
 		}
 	}
 	free(data->tokens[0]);
 	data->tokens[0] = NULL;
-	free_array_of_pointers(directories);
+	free_array_of_pointers(&(directories));
 	return (ret_code);
 }
 
@@ -69,7 +69,7 @@ char **path_tok(ProgramData *data)
 	char **tokens = NULL;
 	char *PATH;
 
-	PATH = env_get_key("PATH", data);
+	PATH = get_env_key("PATH", data);
 
 	/* Check if PATH is not set or empty */
 	if (PATH[0] == '\0' || PATH == NULL)

@@ -85,5 +85,5 @@ int _getline(ProgramData *data)
 		array_operators[i] = array_operators[i + 1];
 	}
 
-	return (str_length(data->input_line));
+	return (_len(data->input_line));
 }

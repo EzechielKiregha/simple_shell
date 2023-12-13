@@ -5,7 +5,7 @@
  * @data: Pointer to the ProgramData structure containing program information.
  * Return: Exit status based on the provided argument or the value of errno.
  */
-int exit_command(ProgramData * data)
+int exit_command(ProgramData *data)
 {
 	int i;
 
@@ -31,7 +31,7 @@ int exit_command(ProgramData * data)
  */
 int cd_command(ProgramData *data)
 {
-	char *home_dir = env_get_key("HOME", data);
+	char *home_dir = get_env_key("HOME", data);
 	char *old = NULL;
 	char old_dir[128] = {0};
 	int error_code = 0;
@@ -42,10 +42,10 @@ int cd_command(ProgramData *data)
 		if (str_compare(data->tokens[1], "-", 0))
 		{
 			/* Retrieve the OLDPWD from env variables */
-			old = env_get_key("OLDPWD", data);
+			old = get_env_key("OLDPWD", data);
 			if (old) /* Change to the old working directory */
 				error_code = set_work_directory(data, old);
-			_printf(env_get_key("PWD", data)); /* print current working dir*/
+			_printf(get_env_key("PWD", data)); /* print current working dir*/
 			_printf("\n");
 			return (error_code);
 		}
@@ -85,10 +85,10 @@ int set_work_directory(ProgramData *data, char *new_dir)
 			return (3);  /* Return 3 to indicate chdir failure */
 		}
 		/* Update the "PWD" env var with the new directory */
-		env_set_key("PWD", new_dir, data);
+		set_key_value_pair("PWD", new_dir, data);
 	}
 	/* Update the "OLDPWD" env var with the old directory */
-	env_set_key("OLDPWD", old_dir, data);
+	set_key_value_pair("OLDPWD", old_dir, data);
 	return (0);
 }
 
@@ -106,7 +106,7 @@ int help_command(ProgramData *data)
 	/* Validate the number of arguments */
 	if (data->tokens[1] == NULL)
 	{
-		_print(messages[0] + 6);
+		_printf(messages[0] + 6);
 		return (1);
 	}
 	if (data->tokens[2] != NULL)
@@ -124,7 +124,7 @@ int help_command(ProgramData *data)
 	/* does the provided argument matches any command's help message */
 	for (i = 0; messages[i]; i++)
 	{
-		length = str_length(data->tokens[1]);
+		length = _len(data->tokens[1]);
 		if (str_compare(data->tokens[1], messages[i], length))
 		{
 			_printf(messages[i] + length + 1);
@@ -154,7 +154,7 @@ int alias_command(ProgramData *data)
 	{
 		/* Check if the argument contains the "=" character */
 		if (count_characters(data->tokens[i], "="))
-			set_alias(data->tokens[i], data);
+			alias_set(data->tokens[i], data);
 		else
 			return (print_alias(data, data->tokens[i]));
 	}

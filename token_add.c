@@ -10,9 +10,9 @@
 void tokenize(ProgramData *data)
 {
 	char *delimiter = " \t";
-	int i = 0, counter = 2, length;
+	int i = 0, j = 0, counter = 2, length;
 
-	length = str_length(data->input_line);
+	length = _len(data->input_line);
 
 	/* Remove the newline character at the end, if present */
 	if (length && data->input_line[length - 1] == '\n')
@@ -21,7 +21,7 @@ void tokenize(ProgramData *data)
 	/* Count the number of tokens based on delimiters */
 	while (data->input_line[i])
 	{
-		for (int j = 0; delimiter[j]; j++)
+		for (j = 0; delimiter[j]; j++)
 		{
 			if (data->input_line[i] == delimiter[j])
 				counter++;

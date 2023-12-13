@@ -14,7 +14,7 @@ int env_command(ProgramData *data)
 
 	/*If no arguments, print the environment*/
 	if (data->tokens[1] == NULL)
-		print_environ(data);
+		print_env(data);
 	else
 	{
 		/*Check if there is a variable assignment*/
@@ -24,20 +24,20 @@ int env_command(ProgramData *data)
 		if (data->tokens[1][i] == '=')
 		{
 			/*Temporarily change the value of an existing variable*/
-			var_copy = str_duplicate(env_get_key(name_container, data));
+			var_copy = str_duplicate(get_env_key(name_container, data));
 			if (var_copy != NULL)
-				env_set_key(name_container, data->tokens[1] + i + 1, data);
+				set_key_value_pair(name_container, data->tokens[1] + i + 1, data);
 			/*Print the modified environment*/
-			print_environ(data);
+			print_env(data);
 			/*Print the variable if it doesn't exist in the environment*/
-			if (env_get_key(name_container, data) == NULL)
+			if (get_env_key(name_container, data) == NULL)
 			{
 				_printf(data->tokens[1]);
 				_printf("\n");
 			}
 			else
 			{
-				env_set_key(name_container, var_copy, data);
+				set_key_value_pair(name_container, var_copy, data);
 				free(var_copy);
 			}
 			return (0);
@@ -65,7 +65,7 @@ int set_env(ProgramData *data)
 		return (5);
 	}
 	/*Set or update the environment variable*/
-	env_set_key(data->tokens[1], data->tokens[2], data);
+	set_key_value_pair(data->tokens[1], data->tokens[2], data);
 
 	return (0);
 }
@@ -88,7 +88,7 @@ int unset_env(ProgramData *data)
 		return (5);
 	}
 	/*Unset or remove the environment variable*/
-	env_remove_key(data->tokens[1], data);
+	remove_env_key(data->tokens[1], data);
 
 	return (0);
 }

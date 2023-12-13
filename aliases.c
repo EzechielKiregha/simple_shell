@@ -14,7 +14,7 @@ int print_alias(ProgramData *data, char *alias)
 	/* Check if aliases exists */
 	if (data->aliases)
 	{
-		len = str_length(alias);
+		len = _len(alias);
 		for (i = 0; data->aliases[i]; i++)
 		{
 			if (!alias || (str_compare(data->aliases[i], alias, len)
@@ -48,7 +48,7 @@ char *alias_get(ProgramData *data, char *name)
 	/* Validate arguments */
 	if (name == NULL || data->aliases == NULL)
 		return (NULL);
-	len = str_length(name);
+	len = _len(name);
 	for (i = 0; data->aliases[i]; i++)
 	{
 		/* any match so far in alias name and the format 'NAME=' */

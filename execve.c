@@ -18,7 +18,7 @@ int execute(ProgramData *data)
 	}
 	value = locate_executable_cmd(data);
 	if (value)
-	{/* Ifis not found, return the error code */
+	{/* If not found, return the error code */
 		return (value);
 	}
 	pid = fork();/*fork a new process, if found*/

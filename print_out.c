@@ -8,7 +8,7 @@
  */
 int _printe(char *chain_of_chars)
 {
-	return (write(STDERR_FILENO, chain_of_chars, str_length(chain_of_chars)));
+	return (write(STDERR_FILENO, chain_of_chars, _len(chain_of_chars)));
 }
 
 /**
@@ -19,7 +19,7 @@ int _printe(char *chain_of_chars)
  */
 int _printf(char *chain_of_chars)
 {
-	return (write(STDOUT_FILENO, chain_of_chars, str_length(chain_of_chars)));
+	return (write(STDOUT_FILENO, chain_of_chars, _len(chain_of_chars)));
 }
 /**
  * _error_stdout - writes a array of chars in the STDERR

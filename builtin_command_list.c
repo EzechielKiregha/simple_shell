@@ -1,7 +1,7 @@
 #include "real_shell.h"
 
 /**
- * execute_builtins - Execute a builtin command based on the provided data.
+ * is_builtin - Execute a builtin command based on the provided data.
  * Return: Return value of the executed builtin function
  * @data: Pointer to the ProgramData structure containing program information.
  * or -1 if no match is found.
@@ -16,8 +16,8 @@ int is_builtin(ProgramData *data)
 		{"cd", cd_command},
 		{"alias", alias_command},
 		{"env", env_command},
-		{"setenv", set_env_command},
-		{"unsetenv", env_command},
+		{"setenv", set_env},
+		{"unsetenv", unset_env},
 		{NULL, NULL} /* the end of the array Should always be NULL. */
 	};
 	/* iterate throught the array */
