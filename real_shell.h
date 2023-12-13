@@ -129,4 +129,63 @@ void expand_alias(ProgramData *data);
 
 /* append the string to the end of the buffer*/
 int buffer_add(char *buffer, char *str_to_add);
+
+/*--------------- token_add.c & tokenization.c --------------*/
+
+/*Tokenize the input line into an array of strings.*/
+void tokenize(ProgramData *data);
+
+/*separates strings with delimiters*/
+char *_strtok(char *line, char *delim);
+
+/*------------ print_out.c / helper print------------*/
+
+/*writes a array of characters in the STDOUT*/
+int _printf(char *chain_of_chars);
+
+/*writes a array of characters in the STDERR*/
+int _printe(char *chain_of_chars);
+
+/*writes a array of chars in the STDERR*/
+int _error_stdout(int code_error, ProgramData *data);
+
+/*--------- chain_of_chars.c / helper string ---------*/
+
+/* Counts the number of characters of a string */
+int _len(char *chain_of_chars);
+
+/* Duplicates an string */
+char *str_duplicate(char *chain_of_chars);
+
+/* Compares two strings */
+int str_compare(char *chain_of_chars_1, char *chain_of_chars_2, int number);
+
+/* Concatenates two strings */
+char *str_concat(char *chain_of_chars_1, char *chain_of_chars_2);
+
+/* Reverse a string */
+void str_reverse(char *chain_of_chars);
+
+/*-------- numbers.c / helper number ----------*/
+
+/* Cast from int to string */
+void long_to_string(long number, char *string, int _base);
+
+/* convert an string in to a number */
+int _atoi(char *s);
+
+/* count the coincidences of character in string */
+int count_characters(char *string, char *character);
+
+/*-------- memory_release.c / helper free ------------*/
+
+/* the memory for directories released (freed)*/
+void free_array_of_pointers(char **list);
+
+/* Free the fields needed each loop */
+void free_recurrent_data(ProgramData *data);
+
+/* Free all field of the data */
+void free_all_data(ProgramData *data);
+
 #endif
